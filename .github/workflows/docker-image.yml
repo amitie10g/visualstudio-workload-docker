@@ -10,6 +10,9 @@ jobs:
         WIN_VER: ["2022", "019"]
         VS_VER: ["2022", "2019", "2017"]
     runs-on: windows-${{ matrix.WIN_VER }}
+    permissions:
+      contents: read
+      packages: write
     steps:
     - name: Checkout
       uses: actions/checkout@v4
