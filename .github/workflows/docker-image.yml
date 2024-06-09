@@ -7,8 +7,24 @@ jobs:
   ltsc2022:
     strategy:
       matrix:
-        WIN_VER: ["2022", "2019"]
-        VS_VER: ["2022", "2019", "2017"]
+        WORKLOAD:
+        - vctools
+        - xamarinbuildtools
+        - nodebuildtools
+        - officebuildtools
+        - universalbuildtools
+        - webbuildtools
+        - netcorebuildtools
+        - manageddesktopbuildtools
+        - azurebuildtools
+        - databuildtools
+        VS_VER:
+          - 2022
+          - 2019
+          - 2017
+        WIN_VER:
+          - 2022
+          - 2019
     runs-on: windows-${{ matrix.WIN_VER }}
     permissions:
       contents: read
@@ -36,16 +52,18 @@ jobs:
     - name: Build
       run: >
         docker build
-        --build-arg WIN_VER=ltsc${{ matrix.WIN_VER }} --build-arg VS_VER=${{ matrix.VS_VER }}
-        -t ${{ secrets.DOCKERHUB_USERNAME }}/visualstudio${{ matrix.VS_VER }}-workload-vctools:ltsc${{ matrix.WIN_VER }}
-        -t ghcr.io/${{ github.repository_owner }}/visualstudio${{ matrix.VS_VER }}-workload-vctools:ltsc${{ matrix.WIN_VER }}
+        --build-arg WIN_VER=ltsc${{ matrix.WIN_VER }}
+        --build-arg VS_VER=${{ matrix.VS_VER }}
+        --build-arg WORKLOAD=${{ matrix.WORKLOAD }}
+        -t ${{ secrets.DOCKERHUB_USERNAME }}/visualstudio${{ matrix.VS_VER }}-workload-${{ matrix.WORKLOAD }}:ltsc${{ matrix.WIN_VER }}
+        -t ghcr.io/${{ github.repository_owner }}/visualstudio${{ matrix.VS_VER }}-workload-${{ matrix.WORKLOAD }}:ltsc${{ matrix.WIN_VER }}
         .
     - name: Tag latest
-      if: ${{matrix.WIN_VER == 2022 }}
+      if: ${{ matrix.WIN_VER == 2022 }}
       run: |
-        docker tag ${{ secrets.DOCKERHUB_USERNAME }}/visualstudio${{ matrix.VS_VER }}-workload-vctools:ltsc${{ matrix.WIN_VER }} ${{ secrets.DOCKERHUB_USERNAME }}/visualstudio${{ matrix.VS_VER }}-workload-vctools
-        docker tag ghcr.io/${{ github.repository_owner }}/visualstudio${{ matrix.VS_VER }}-workload-vctools:ltsc${{ matrix.WIN_VER }} ghcr.io/visualstudio${{ matrix.VS_VER }}-workload-vctools
+        docker tag ${{ secrets.DOCKERHUB_USERNAME }}/visualstudio${{ matrix.VS_VER }}-workload-${{ matrix.WORKLOAD }}:ltsc${{ matrix.WIN_VER }} ${{ secrets.DOCKERHUB_USERNAME }}/visualstudio${{ matrix.VS_VER }}-workload-${{ matrix.WIN_VER }}
+        docker tag ghcr.io/${{ github.repository_owner }}/visualstudio${{ matrix.VS_VER }}-workload-${{ matrix.WORKLOAD }}:ltsc${{ matrix.WIN_VER }} ghcr.io/visualstudio${{ matrix.VS_VER }}-workload-${{ matrix.WIN_VER }}
     - name: push
       run: |
-        docker push ${{ secrets.DOCKERHUB_USERNAME }}/visualstudio${{ matrix.VS_VER }}-workload-vctools --all-tags
-        docker push ghcr.io/${{ github.repository_owner }}/visualstudio${{ matrix.VS_VER }}-workload-vctools --all-tags
+        docker push ${{ secrets.DOCKERHUB_USERNAME }}/visualstudio${{ matrix.VS_VER }}-workload-${{ matrix.WORKLOAD }} --all-tags
+        docker push ghcr.io/${{ github.repository_owner }}/visualstudio${{ matrix.VS_VER }}-workload-${{ matrix.WORKLOAD }} --all-tags
