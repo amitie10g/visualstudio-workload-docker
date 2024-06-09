@@ -62,7 +62,7 @@ jobs:
       if: ${{ matrix.WIN_VER == 2022 }}
       run: |
         docker tag ${{ secrets.DOCKERHUB_USERNAME }}/visualstudio${{ matrix.VS_VER }}-workload-${{ matrix.WORKLOAD }}:ltsc${{ matrix.WIN_VER }} ${{ secrets.DOCKERHUB_USERNAME }}/visualstudio${{ matrix.VS_VER }}-workload-${{ matrix.WORKLOAD }}
-        docker tag ghcr.io/${{ github.repository_owner }}/visualstudio${{ matrix.VS_VER }}-workload-${{ matrix.WORKLOAD }}:ltsc${{ matrix.WIN_VER }} ghcr.io/visualstudio${{ matrix.VS_VER }}-workload-${{ matrix.WORKLOAD }}
+        docker tag ghcr.io/${{ github.repository_owner }}/visualstudio${{ matrix.VS_VER }}-workload-${{ matrix.WORKLOAD }}:ltsc${{ matrix.WIN_VER }} ghcr.io/${{ github.repository_owner }}/visualstudio${{ matrix.VS_VER }}-workload-${{ matrix.WORKLOAD }}
     - name: push
       run: |
         docker push ${{ secrets.DOCKERHUB_USERNAME }}/visualstudio${{ matrix.VS_VER }}-workload-${{ matrix.WORKLOAD }} --all-tags
