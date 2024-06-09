@@ -1,10 +1,9 @@
-# Visual C++ build tools workload for Visual Studio Build Tools
-This container brings Visual C++ build tools workload for Visual Studio Build Tools (2022, 2019 and 2017) in a Docker container using the [.NET Framework runtime](https://hub.docker.com/_/microsoft-dotnet-framework-runtime/) 4.8 (on Windows Server Core ltsc2022 and ltsc2019) base image, plus [Chocolatey](https://chocolatey.org/).
+# Workloads for Visual Studio Build Tools under Windows Server plus Chocolatey
+This container brings several workloads Visual Studio Build Tools (2022, 2019 and 2017) in a Docker container using the [.NET Framework runtime](https://hub.docker.com/_/microsoft-dotnet-framework-runtime/) 4.8 (on Windows Server Core ltsc2022 and ltsc2019) base image, plus [Chocolatey](https://chocolatey.org/).
 
-# Container images available at Docker Hub
-* [``amitie10g/visualstudio2022-workload-vctools``](https://hub.docker.com/r/amitie10g/visualstudio2022-workload-vctools)
-* [``amitie10g/visualstudio2019-workload-vctools``](https://hub.docker.com/r/amitie10g/visualstudio2019-workload-vctools)
-* [``amitie10g/visualstudio2019-workload-vctools``](https://hub.docker.com/r/amitie10g/visualstudio2017-workload-vctools)
+# Container images
+A full list at [GitHub Container Registry](https://github.com/amitie10g?tab=packages&repo_name=visualstudio-workload-docker). You may use both Docker Hub container registry (``amitie10g/<container image>`` or GitHub Continer Registry (``ghcr.io/mitie10g/<container image>``)
+
 
 ## Tags:
 * ``ltsc2022`` ``latest``
@@ -12,7 +11,6 @@ This container brings Visual C++ build tools workload for Visual Studio Build To
 
 # Building
 * GitHub Actions workflow is provided for automated builds onto Server Core 2022 and 2019.
-* ``build.ps1`` Powershell script is provided for building different versions as your needs.
 
 # Licensing
 * The contents on this repo are released into the Public domain (**The Unlicense**)
