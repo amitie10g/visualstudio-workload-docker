@@ -6,6 +6,7 @@ on:
 jobs:
   Build:
     strategy:
+      fail-fast: false
       matrix:
         WORKLOAD:
         - vctools
@@ -19,13 +20,23 @@ jobs:
         - azurebuildtools
         - databuildtools
         VS_VER:
-          - 2022
-          - 2019
-          - 2017
+        - 2022
+        - 2019
+        - 2017
         WIN_VER:
-          - 2022
-          - 2019
-    runs-on: windows-${{ matrix.WIN_VER }}
+        - ltsc2025
+        - ltsc2022
+        - ltsc2019
+        - 20H2
+        - 2009
+        - 2004
+        - 1909
+        - 1903
+        - 1809
+        - 1803
+        - 1709
+
+    runs-on: windows-2022
     permissions:
       contents: read
       packages: write
@@ -36,22 +47,22 @@ jobs:
         submodules: recursive
     - name: Pull and tag parent image
       run: |
-        docker pull ghcr.io/${{ github.repository_owner }}/visualstudio${{ matrix.VS_VER }}buildtools:ltsc${{ matrix.WIN_VER }}
-        docker tag  ghcr.io/${{ github.repository_owner }}/visualstudio${{ matrix.VS_VER }}buildtools:ltsc${{ matrix.WIN_VER }} ${{ secrets.DOCKERHUB_USERNAME }}/visualstudio${{ matrix.VS_VER }}buildtools:ltsc${{ matrix.WIN_VER }}
+        docker pull ghcr.io/${{ github.repository_owner }}/visualstudio${{ matrix.VS_VER }}buildtools:${{ matrix.WIN_VER }}
+        docker tag  ghcr.io/${{ github.repository_owner }}/visualstudio${{ matrix.VS_VER }}buildtools:${{ matrix.WIN_VER }} ${{ secrets.DOCKERHUB_USERNAME }}/visualstudio${{ matrix.VS_VER }}buildtools:ltsc${{ matrix.WIN_VER }}
     - name: Build
       run: >
         docker build
-        --build-arg WIN_VER=ltsc${{ matrix.WIN_VER }}
+        --build-arg WIN_VER=${{ matrix.WIN_VER }}
         --build-arg VS_VER=${{ matrix.VS_VER }}
         --build-arg WORKLOAD=${{ matrix.WORKLOAD }}
-        -t ${{ secrets.DOCKERHUB_USERNAME }}/visualstudio${{ matrix.VS_VER }}-workload-${{ matrix.WORKLOAD }}:ltsc${{ matrix.WIN_VER }}
-        -t ghcr.io/${{ github.repository_owner }}/visualstudio${{ matrix.VS_VER }}-workload-${{ matrix.WORKLOAD }}:ltsc${{ matrix.WIN_VER }}
+        -t ${{ secrets.DOCKERHUB_USERNAME }}/visualstudio${{ matrix.VS_VER }}-workload-${{ matrix.WORKLOAD }}:${{ matrix.WIN_VER }}
+        -t ghcr.io/${{ github.repository_owner }}/visualstudio${{ matrix.VS_VER }}-workload-${{ matrix.WORKLOAD }}:${{ matrix.WIN_VER }}
         .
     - name: Tag latest
       if: ${{ matrix.WIN_VER == 2022 }}
       run: |
-        docker tag ${{ secrets.DOCKERHUB_USERNAME }}/visualstudio${{ matrix.VS_VER }}-workload-${{ matrix.WORKLOAD }}:ltsc${{ matrix.WIN_VER }} ${{ secrets.DOCKERHUB_USERNAME }}/visualstudio${{ matrix.VS_VER }}-workload-${{ matrix.WORKLOAD }}
-        docker tag ghcr.io/${{ github.repository_owner }}/visualstudio${{ matrix.VS_VER }}-workload-${{ matrix.WORKLOAD }}:ltsc${{ matrix.WIN_VER }} ghcr.io/${{ github.repository_owner }}/visualstudio${{ matrix.VS_VER }}-workload-${{ matrix.WORKLOAD }}
+        docker tag ${{ secrets.DOCKERHUB_USERNAME }}/visualstudio${{ matrix.VS_VER }}-workload-${{ matrix.WORKLOAD }}:${{ matrix.WIN_VER }} ${{ secrets.DOCKERHUB_USERNAME }}/visualstudio${{ matrix.VS_VER }}-workload-${{ matrix.WORKLOAD }}
+        docker tag ghcr.io/${{ github.repository_owner }}/visualstudio${{ matrix.VS_VER }}-workload-${{ matrix.WORKLOAD }}:${{ matrix.WIN_VER }} ghcr.io/${{ github.repository_owner }}/visualstudio${{ matrix.VS_VER }}-workload-${{ matrix.WORKLOAD }}
     - name: Login to Docker Hub
       uses: docker/login-action@v3
       with:
