@@ -48,7 +48,7 @@ jobs:
     - name: Pull and tag parent image
       run: |
         docker pull ghcr.io/${{ github.repository_owner }}/visualstudio${{ matrix.VS_VER }}buildtools:${{ matrix.WIN_VER }}
-        docker tag  ghcr.io/${{ github.repository_owner }}/visualstudio${{ matrix.VS_VER }}buildtools:${{ matrix.WIN_VER }} ${{ secrets.DOCKERHUB_USERNAME }}/visualstudio${{ matrix.VS_VER }}buildtools:ltsc${{ matrix.WIN_VER }}
+        docker tag  ghcr.io/${{ github.repository_owner }}/visualstudio${{ matrix.VS_VER }}buildtools:${{ matrix.WIN_VER }} ${{ secrets.DOCKERHUB_USERNAME }}/visualstudio${{ matrix.VS_VER }}buildtools:${{ matrix.WIN_VER }}
     - name: Build
       run: >
         docker build
