@@ -83,11 +83,10 @@ jobs:
         docker tag ghcr.io/${{ github.repository_owner }}/visualstudio${{ matrix.VS_VER }}-workload-${{ matrix.WORKLOAD }}:${{ matrix.WIN_VER }} ghcr.io/${{ github.repository_owner }}/visualstudio${{ matrix.VS_VER }}-workload-${{ matrix.WORKLOAD }}
 
     - name: Tag same images (20H2 -> 2009)
-      if: ${{ matrix.WIN_VER == 20H2 }}
+      if: ${{ matrix.WIN_VER == '20H2' }}
       run: |
         docker tag ${{ secrets.DOCKERHUB_USERNAME }}/visualstudio${{ matrix.VS_VER }}-workload-${{ matrix.WORKLOAD }}:${{ matrix.WIN_VER }} ${{ secrets.DOCKERHUB_USERNAME }}/visualstudio${{ matrix.VS_VER }}-workload-${{ matrix.WORKLOAD }}:2009
         docker tag ghcr.io/${{ github.repository_owner }}/visualstudio${{ matrix.VS_VER }}-workload-${{ matrix.WORKLOAD }}:${{ matrix.WIN_VER }} ghcr.io/${{ github.repository_owner }}/visualstudio${{ matrix.VS_VER }}-workload-${{ matrix.WORKLOAD }}:2009
-
 
     - name: push
       run: |
