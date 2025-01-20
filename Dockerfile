@@ -7,4 +7,4 @@ ARG VS_VER
 ARG WORKLOAD
 
 SHELL ["powershell", "-Command"]
-RUN choco install -y visualstudio${env:VS_VER}-workload-${env:WORKLOAD}; choco-cleaner
+RUN choco install --execution-timeout=20000 -y visualstudio${env:VS_VER}-workload-${env:WORKLOAD}; choco-cleaner
