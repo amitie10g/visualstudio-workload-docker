@@ -47,6 +47,7 @@ jobs:
         echo '{"hosts": ["npipe://"], "data-root": "D:\\docker"}' > C:\ProgramData\docker\config\daemon.json
         net stop docker
         net start docker
+
     - name: Checkout
       uses: actions/checkout@v4
       with:
