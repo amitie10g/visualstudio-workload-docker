@@ -27,10 +27,10 @@ jobs:
         - 2017
         WORKLOAD:
         - vctools
-        - xamarinbuildtools
+#        - xamarinbuildtools
         - nodebuildtools
         - officebuildtools
-        - universalbuildtools
+#        - universalbuildtools
         - webbuildtools
         - netcorebuildtools
         - manageddesktopbuildtools
