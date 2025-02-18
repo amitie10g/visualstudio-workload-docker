@@ -42,11 +42,6 @@ jobs:
       contents: read
       packages: write
     steps:
-    - name: Write new Docker configuration
-      run: |
-        echo '{"hosts": ["npipe://"], "data-root": "D:\\docker"}' > C:\ProgramData\docker\config\daemon.json
-        net stop docker
-        net start docker
 
     - name: Checkout
       uses: actions/checkout@v4
@@ -65,6 +60,82 @@ jobs:
         registry: ghcr.io
         username: ${{ github.repository_owner }}
         password: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Delete unwanted
+      continue-on-error: true
+      shell: cmd
+      run: >
+        rmdir /s /q
+        C:\Android
+        C:\azureCli
+        C:\azureDevOpsCli
+        C:\image
+        C:\Julia
+        C:\mingw32
+        C:\mingw64
+        C:\Miniconda
+        C:\Modules
+        C:\msys64
+        C:\npm
+        C:\Packages
+        C:\PerfLogs
+        C:\PSModuleAnalysisCachePath
+        C:\rtools44
+        C:\selenium
+        C:\SeleniumWebDrivers
+        C:\Strawberry
+        C:\vcpkg
+        "C:\Program files\7-Zip"
+        "C:\Program files\Amazon"
+        "C:\Program files\Android"
+        "C:\Program files\Azure Cosmos DB Emulator"
+        "C:\Program files\CMake"
+        "C:\Program files\dotnet"
+        "C:\Program files\Git"
+        "C:\Program files\Google"
+        "C:\Program files\ImageMagick-7.1.1-Q16-HDRI"
+        "C:\Program files\LLVM"
+        "C:\Program files\Microsoft SDKs"
+        "C:\Program files\Microsoft Service Fabric"
+        "C:\Program files\Microsoft SQL Server"
+        "C:\Program files\Microsoft Visual Studio"
+        "C:\Program files\Microsoft Visual Studio 14.0"
+        "C:\Program files\MongoDB"
+        "C:\Program files\mongosh"
+        "C:\Program files\Mozilla Firefox"
+        "C:\Program files\MSBuild"
+        "C:\Program files\MySQL"
+        "C:\Program files\OpenSSL"
+        "C:\Program files\PackageManagement"
+        "C:\Program files\PostgreSQL"
+        "C:\Program files\R"
+        "C:\Program files\Reference Assemblies"
+        "C:\Program files\Unity Hub"
+        "C:\Program files\VS2010Schemas"
+        "C:\Program files\VS2012Schemas"
+        "C:\Program files (x86)\Android"
+        "C:\Program files (x86)\dotnet"
+        "C:\Program files (x86)\Google"
+        "C:\Program files (x86)\HTML Help Workshop"
+        "C:\Program files (x86)\IIS"
+        "C:\Program files (x86)\IIS Express"
+        "C:\Program files (x86)\Microsoft Analysis Services"
+        "C:\Program files (x86)\Microsoft SDKs"
+        "C:\Program files (x86)\Microsoft SQL Server"
+        "C:\Program files (x86)\Microsoft Visual Studio"
+        "C:\Program files (x86)\Microsoft Visual Studio 14.0"
+        "C:\Program files (x86)\Microsoft Web Tools"
+        "C:\Program files (x86)\Microsoft.NET"
+        "C:\Program files (x86)\Mozilla Maintenance Service"
+        "C:\Program files (x86)\MSBuild"
+        "C:\Program files (x86)\Open XML SDK"
+        "C:\Program files (x86)\pipx"
+        "C:\Program files (x86)\pipx_bin"
+        "C:\Program files (x86)\Reference Assemblies"
+        "C:\Program files (x86)\sbt"
+        "C:\Program files (x86)\WiX Toolset v3.14"
+        "C:\Program files (x86)\Workflow Manager Tools"
+        "C:\Program files (x86)\Xamarin"
 
     - name: Pull and tag parent image
       run: |
