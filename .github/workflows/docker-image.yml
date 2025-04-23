@@ -130,7 +130,7 @@ jobs:
     - name: Delete unwanted
       continue-on-error: true
       run: |
-        $env:LISTA_ELEMENTOS -split "`n" | ForEach-Object -Parallel {
+        $env:TO_DELETE -split "`n" | ForEach-Object -Parallel {
           try {
             cmd /c "rmdir /s /q $_"
           } catch {}
