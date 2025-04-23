@@ -132,11 +132,9 @@ jobs:
       run: |
         $env:TO_DELETE -split "`n" | ForEach-Object -Parallel {
           try {
-            cmd /c "rmdir /s /q $_"
+            cmd /c "rmdir /s /q $_ 2>&1 | Out-Null; exit 0"
             Write-Output "OK: $_"
-          } catch {
-            Write-Output "Error: $_"
-          }
+          } catch {}
         } -ThrottleLimit 4
 
     - name: Pull and tag parent image
