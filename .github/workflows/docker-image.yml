@@ -133,7 +133,7 @@ jobs:
         $env:LISTA_ELEMENTOS -split "`n" | ForEach-Object -Parallel {
           try {
             cmd /c "rmdir /s /q $_"
-          }
+          } catch {}
         } -ThrottleLimit 4
 
     - name: Pull and tag parent image
