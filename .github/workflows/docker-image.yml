@@ -132,7 +132,7 @@ jobs:
       run: |
         $env:TO_DELETE -split "`n" | ForEach-Object -Parallel {
           try {
-            cmd /c "rmdir /s /q $_ 2>&1 | Out-Null; exit 0"
+            Remove-Item -Path $_ -Force -Recurse -ErrorAction SilentlyContinue
             Write-Output "OK: $_"
           } catch {}
         } -ThrottleLimit 4
