@@ -80,7 +80,7 @@ jobs:
         - ltsc2022
         - ltsc2025
         - ltsc2019
-        - ltsc2016
+#        - ltsc2016
         - 20H2
         - 2009
         - 2004
@@ -93,10 +93,10 @@ jobs:
         - 2017
         WORKLOAD:
         - vctools
-#        - xamarinbuildtools
+        - xamarinbuildtools
         - nodebuildtools
         - officebuildtools
-#        - universalbuildtools
+        - universalbuildtools
         - webbuildtools
         - netcorebuildtools
         - manageddesktopbuildtools
