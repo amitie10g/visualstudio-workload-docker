@@ -6,7 +6,7 @@ on:
 jobs:
   Build:
     env:
-      WIN_VER_LATEST: ltsc2022
+      WIN_VER_LATEST: ltsc2025
       TO_DELETE: |-
         C:\Android
         C:\azureCli
@@ -77,16 +77,8 @@ jobs:
       fail-fast: false
       matrix:
         WIN_VER:
-        - ltsc2022
         - ltsc2025
-        - ltsc2019
-#        - ltsc2016
-        - 20H2
-        - 2009
-        - 2004
-#        - 1909
-#        - 1903
-        - 1803
+        - ltsc2022
         VS_VER:
         - 2022
         - 2019
